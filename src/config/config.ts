@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 export const config = {
   "dev": {
     "username": process.env.POSTGRESS_USERNAME,
@@ -17,6 +19,8 @@ export const config = {
     "dialect": "postgres"
   },
   "jwt": {
-    "secret": process.env.JWT_SECRET
+    "secret": "hello word"
   }
 }
+
+// "secret": process.env.JWT_SECRET
