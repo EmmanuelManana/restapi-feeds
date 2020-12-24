@@ -35,4 +35,4 @@ spec:
         - name: AWS_BUCKET
           value: "udagram-manana-dev"
         - name: JWT_SECRET
-          value: "hello word"
+          value: "hello world"
