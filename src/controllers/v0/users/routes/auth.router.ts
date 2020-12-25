@@ -13,10 +13,10 @@ const router: Router = Router();
 
 
 async function generatePassword(plainTextPassword: string): Promise<string> {
-    console.log("plainPassword " + plainTextPassword)
+
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
-    console.log("hash " + salt)
+   
     return await bcrypt.hash(plainTextPassword, salt);
 }
 
@@ -26,8 +26,7 @@ async function comparePasswords(plainTextPassword: string, hash: string): Promis
 
 
 function generateJWT(user: User): string {
-    console.log("user " + user);
-    console.log("jwt secret " + config.jwt.secret);
+    
     
     return jwt.sign(JSON.stringify(user.short()), config.jwt.secret);
 }
@@ -80,7 +79,7 @@ router.post('/login', async (req: Request, res: Response) => {
     }
     // Generate JWT
     const jwt = generateJWT(user);
-    console.log("jwt {" + jwt + "}");
+   
     
     res.status(200).send({ auth: true, token: jwt, user: user.short()});
 });
@@ -89,8 +88,7 @@ router.post('/login', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
     const email = req.body.email;
     const plainTextPassword = req.body.password;
-    console.log("email" + email);
-    console.log("password" + plainTextPassword);
+   
 
     // check email is valid
     if (!email || !EmailValidator.validate(email)) {
@@ -102,17 +100,17 @@ router.post('/', async (req: Request, res: Response) => {
     }
     // check that user doesnt exists
     const user = await User.findByPk(email);
-    console.log("user email" + user);
+    
     
     if (user) {
-        console.log("user " + user);
+       
         
         return res.status(422).send({ auth: false, message: 'User may already exist' });
     }
-    console.log("01 " + plainTextPassword);
+   
     
     const password_hash = await generatePassword(plainTextPassword);
-    console.log("02 " + password_hash);
+    
     
     const newUser = await new User({
         email: email,

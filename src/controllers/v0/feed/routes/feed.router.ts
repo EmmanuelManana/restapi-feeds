@@ -35,7 +35,7 @@ router.patch('/:id',
         let { id } = req.params;
         const caption = req.body.caption;
         const fileName = req.body.url;
-        console.log("caption " + caption);
+       
         const feedItem = await FeedItem.findByPk(id);
         if (feedItem) {
             feedItem.caption = caption;
